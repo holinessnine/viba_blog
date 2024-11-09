@@ -35,8 +35,8 @@ export async function POST(request: Request) {
     const response = await octokit.request(
       "PUT /repos/{owner}/{repo}/contents/{path}",
       {
-        owner: "jja8989",
-        repo: "blog_repos",
+        owner: "holinessnine",
+        repo: "viba_blog",
         path: filePath, // 전달받은 filePath 사용
         message: `Upload image: ${filePath}`,
         content: base64Content, // Base64 인코딩된 이미지 데이터

@@ -3,29 +3,29 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const { title, content } = await request.json();
-
+  
     if (!title || !content) {
       return NextResponse.json(
         { message: "Title and content are required" },
         { status: 400 }
       );
     }
-
+  
     const GITHUB_ACCESS_TOKEN = process.env.GITHUB_ACCESS_TOKEN;
-
+    console.log("GitHub Access Token 확인:", GITHUB_ACCESS_TOKEN ? "토큰 존재" : "토큰 없음");
+  
     if (!GITHUB_ACCESS_TOKEN) {
       return NextResponse.json(
         { message: "GitHub access token not found" },
         { status: 500 }
       );
     }
-
+  
     const fileName = `${title.replace(/\s+/g, "-").toLowerCase()}.md`;
-    const filePath = `post/2024/${fileName}`; // 경로를 'post/2024'로 변경
-
-    // GitHub API로 파일 업로드 요청
+    const filePath = `post/2024/${fileName}`;
+  
     const response = await fetch(
-      `https://api.github.com/repos/jja8989/blog_repos/contents/${filePath}`,
+      `https://api.github.com/repos/holinessnine/viba_blog/contents/${filePath}`,
       {
         method: "PUT",
         headers: {
@@ -34,16 +34,15 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           message: `Add new post: ${title}`,
-          content: Buffer.from(content).toString("base64"), // Base64 인코딩
+          content: Buffer.from(content).toString("base64"),
         }),
       }
     );
-
+  
     const result = await response.json();
-
-    // GitHub API 응답을 로그로 출력하여 문제 파악
-    console.log("GitHub API 응답:", result);
-
+    console.log("GitHub API 응답 상태 코드:", response.status);
+    console.log("GitHub API 응답 내용:", result);
+  
     if (response.ok) {
       return NextResponse.json(
         { message: "Post created successfully", details: result },

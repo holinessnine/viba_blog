@@ -60,8 +60,8 @@ export async function DELETE(request: Request) {
     const fileContentRes = await octokit.request(
       "GET /repos/{owner}/{repo}/contents/{path}",
       {
-        owner: "jja8989",
-        repo: "blog_repos",
+        owner: "holinessnine",
+        repo: "viba_blog",
         path: filePath,
         ref: "main",
         headers: {
@@ -94,8 +94,8 @@ export async function DELETE(request: Request) {
       const imageMeta = await octokit.request(
         "GET /repos/{owner}/{repo}/contents/{path}",
         {
-          owner: "jja8989",
-          repo: "blog_repos",
+          owner: "holinessnine",
+          repo: "viba_blog",
           path: imagePath,
           ref: "main",
           headers: {
@@ -112,8 +112,8 @@ export async function DELETE(request: Request) {
 
       // 이미지 삭제 요청
       return octokit.request("DELETE /repos/{owner}/{repo}/contents/{path}", {
-        owner: "jja8989",
-        repo: "blog_repos",
+        owner: "holinessnine",
+        repo: "viba_blog",
         path: imagePath,
         message: `Deleted image associated with post: ${slug}`,
         sha: imageMeta.data.sha,
@@ -130,8 +130,8 @@ export async function DELETE(request: Request) {
     const deleteResponse = await octokit.request(
       "DELETE /repos/{owner}/{repo}/contents/{path}",
       {
-        owner: "jja8989",
-        repo: "blog_repos",
+        owner: "holinessnine",
+        repo: "viba_blog",
         path: filePath,
         message: `Deleted post: ${slug}`,
         sha: sha,

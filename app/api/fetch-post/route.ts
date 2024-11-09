@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   // GitHub 저장소에서 전체 파일 목록 가져오기
   const res = await fetch(
-    `https://api.github.com/repos/jja8989/blog_repos/contents/post/2024`,
+    `https://api.github.com/repos/holinessnine/viba_blog/contents/post/2024`,
     {
       headers: {
         Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,

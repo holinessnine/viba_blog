@@ -30,8 +30,8 @@ export async function DELETE(request: Request) {
     const deleteResponse = await octokit.request(
       "DELETE /repos/{owner}/{repo}/contents/{path}",
       {
-        owner: "jja8989",
-        repo: "blog_repos",
+        owner: "holinessnine",
+        repo: "viba_blog",
         path: decodedPath, // decode된 경로 전달
         message: `Deleted image: ${decodedPath}`,
         sha: sha,

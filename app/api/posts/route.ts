@@ -34,7 +34,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      `https://api.github.com/repos/jja8989/blog_repos/contents/post/${year}`,
+      `https://api.github.com/repos/holinessnine/viba_blog/contents/post/${year}`,
       {
         headers: {
           Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,
@@ -78,7 +78,7 @@ export async function GET(request: Request) {
 
           // 각 파일의 커밋 정보를 가져와 작성 시간 정보 추출
           const commitRes = await fetch(
-            `https://api.github.com/repos/jja8989/blog_repos/commits?path=post/${year}/${file.name}`,
+            `https://api.github.com/repos/holinessnine/viba_blog/commits?path=post/${year}/${file.name}`,
             {
               headers: {
                 Authorization: `Bearer ${GITHUB_ACCESS_TOKEN}`,
