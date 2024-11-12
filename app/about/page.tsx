@@ -73,6 +73,13 @@ export default function AboutUs() {
           innovation.
         </p>
       </section>
+      <section>
+        <br></br>
+        <br></br>
+        <h2 className="text-2xl font-bold mb-4">Masters</h2>
+        <p>(석사라는 뜻 X, 블로그 주인장들)</p>
+        <br></br>
+      </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {teamMembers.map((member) => {
