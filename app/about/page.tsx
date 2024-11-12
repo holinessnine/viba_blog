@@ -3,7 +3,7 @@
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 
-const imageNames = ['최진우.jpg', '박정진.jpg', '신성구.jpg', '김유연.jpg'];
+const imageNames = ['최진우.jpeg', '박정진.jpg', '신성구.jpg', '김유연.jpg'];
 
 export default function AboutUs() {
   
@@ -82,7 +82,7 @@ export default function AboutUs() {
             key={member.name}
             className="bg-white shadow-md p-6 rounded-md text-center"
           >
-            <div className="relative w-64 mx-auto pb-[133.33%] mb-4">
+            <div className="relative w-96 mx-auto pb-[100%] mb-4">
               {" "}
               {/* Set a fixed width */}
               <img
