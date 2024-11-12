@@ -20,9 +20,12 @@ export default function CommentsBoard() {
       try {
         const response = await fetch('/api/get-bamboos');
         const data = await response.json();
-        setComments(data.comments);
+        console.log('Fetched comments:', data); // 로그 추가
+        const comments = data.comments || [];
+        setComments(comments);
       } catch (error) {
         console.error('Error fetching comments:', error);
+        setComments([]);
       }
     };
 

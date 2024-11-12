@@ -1,19 +1,23 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
+interface Comment {
+  id: number;
+  username: string;
+  content: string;
+  timestamp: string;
+}
 
+export async function POST(request: Request) {
   const GITHUB_ACCESS_TOKEN = process.env.GITHUB_ACCESS_TOKEN;
 
-  if (!GITHUB_ACCESS_TOKEN) {
-    return res.status(500).json({ message: 'GitHub Access Token not found' });
-  }
-
-  const { username, content } = req.body;
-
   try {
+    // 요청 본문에서 username과 content를 추출
+    const { username, content } = await request.json();
+
+    if (!username || !content) {
+      return NextResponse.json({ message: 'Username and content are required' }, { status: 400 });
+    }
+
     // 기존 파일 가져오기
     const getResponse = await fetch(`https://api.github.com/repos/holinessnine/viba_blog/contents/bamboos/comments.json`, {
       headers: {
@@ -29,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const existingComments = JSON.parse(Buffer.from(getData.content, 'base64').toString('utf-8'));
 
     // 새로운 댓글 추가
-    const newComment = {
+    const newComment: Comment = {
       id: existingComments.length + 1,
       username,
       content,
@@ -55,9 +59,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('Failed to update comments on GitHub');
     }
 
-    res.status(200).json({ message: 'Comment added successfully' });
+    return NextResponse.json({ message: 'Comment added successfully' });
   } catch (error) {
     console.error('Error adding comment:', error);
-    res.status(500).json({ message: 'Error adding comment' });
+    return NextResponse.json({ message: 'Error adding comment', error: (error as Error).message }, { status: 500 });
   }
 }
